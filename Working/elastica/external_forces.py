@@ -404,7 +404,9 @@ class MuscleTorques(NoForces):
         )
         # Head and tail of the snake is opposite compared to elastica cpp. We need to iterate torque_mag
         # from last to first element.
-        torque = _batch_product_i_k_to_ik(direction, torque_mag[::-1])
+            #But this is not true for an octopus arm, cuz we want the motion to be led by the end connected to the 'octopus body'
+            #so yea no we are not swapping directions
+        torque = _batch_product_i_k_to_ik(direction, torque_mag[::1]) #was -1 cuz needed to swap tip and base in the snake case
         inplace_addition(
             external_torques[..., 1:],
             _batch_matvec(director_collection, torque)[..., 1:],
