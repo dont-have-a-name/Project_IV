@@ -262,7 +262,7 @@ def allocate(
 
     internal_stress = np.zeros((3, n_elements))
     internal_couple = np.zeros((3, n_voronoi_elements))
-
+    
     return (
         n_elements,
         position,
@@ -297,7 +297,6 @@ def allocate(
         internal_stress,
         internal_couple,
     )
-
 
 """
 Cosserat rod constructor for straight-rod or ring rod geometry.

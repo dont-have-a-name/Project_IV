@@ -128,7 +128,6 @@ class AnalyticalLinearDamper(DamperBase):
         # Compute the damping coefficient for translational velocity
         nodal_mass = self._system.mass
         self.translational_damping_coefficient = np.exp(-damping_constant * time_step)
-
         # Compute the damping coefficient for exponential velocity
         if self._system.ring_rod_flag:
             element_mass = nodal_mass

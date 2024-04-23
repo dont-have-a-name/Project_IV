@@ -1,6 +1,7 @@
-import numpy as np
-from matplotlib import pyplot as plt
-from matplotlib.colors import to_rgb
+#pip install --upgrade --force -reinstall numpy
+#import numpy as np
+#import matplotlib.pyplot as plt
+#from matplotlib.colors import to_rgb
 
 
 def plot_velocity(
@@ -30,7 +31,7 @@ def plot_velocity(
     ax.plot(
         time_per_period[:],
         velocity_in_rod_roll_dir[:, 0],
-        c=to_rgb("xkcd:bluish"),
+        c=blue,#to_rgb("xkcd:bluish"),
         label="lateral",
     )
     ax.plot(time_per_period[:], avg_velocity[:, 1], "k-", label="normal")
