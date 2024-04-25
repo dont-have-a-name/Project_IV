@@ -12,7 +12,7 @@ from elastica._linalg import (
     _batch_matvec,
 )
 from elastica._rotations import _inv_rotate
-from elastica.rod.factory_function import allocate
+from elastica.rod.factory_function3 import allocate
 from elastica.rod.knot_theory import KnotTheory
 from elastica._calculus import (
     quadrature_kernel_for_block_structure,
@@ -251,6 +251,8 @@ class CosseratRod(RodBase, KnotTheory):
         *,
         nu: Optional[float] = None,
         youngs_modulus: float,
+        shear_modulus: Optional[float] = None,
+        tip_radius: Optional[float] = None, #added this
         **kwargs,
     ):
         """
@@ -345,6 +347,8 @@ class CosseratRod(RodBase, KnotTheory):
             base_radius,
             density,
             youngs_modulus,
+            shear_modulus=shear_modulus, #added this cuz it was gone for some reason
+            tip_radius=tip_radius, #added this
             rod_origin_position=start,
             ring_rod_flag=ring_rod_flag,
             **kwargs,
