@@ -187,7 +187,7 @@ class EndpointForces(NoForces):
 
         """
         factor = min(1.0, time / ramp_up_time)
-        external_forces[..., 0] += start_force * factor
+        external_forces[..., 1] += start_force * factor #was 0
         external_forces[..., -1] += end_force * factor
 
 
