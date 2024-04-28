@@ -19,6 +19,7 @@ def allocate(
     rod_origin_position: np.ndarray,
     ring_rod_flag: bool,
     shear_modulus: Optional[float] = None,
+    tip_radius: Optional[float] = None, #added this
     position: Optional[np.ndarray] = None,
     directors: Optional[np.ndarray] = None,
     rest_sigma: Optional[np.ndarray] = None,
@@ -98,13 +99,21 @@ def allocate(
         directors[1, ...] = _batch_cross(tangents, normal_collection)
         directors[2, ...] = tangents
     _directors_validity_checker(directors, tangents, n_elements)
-
+    
     # Set radius array
     radius = np.zeros((n_elements))
-    # Check if the user input radius is valid
-    radius_temp = np.array(base_radius)
-    _assert_dim(radius_temp, 2, "radius")
-    radius[:] = radius_temp
+    #check if tip radius is provided, if not provided then we assume rod is uniform
+    if tip_radius is None:
+        log.info(
+            "tip radius not given, assume rod is uniform"
+        )
+        # Check if the user input radius is valid
+        radius_temp = np.array(base_radius)
+        _assert_dim(radius_temp, 2, "radius")
+        radius[:] = radius_temp
+    else:
+        for i in range(n_elements):
+            radius[i] += tip_radius * (i/(n_elements -1)) + base_radius * (n_elements -1 -i)/(n_elements -1)
     # Check if the elements of radius are greater than tolerance
     assert np.all(radius > Tolerance.atol()), " Radius has to be greater than 0."
 

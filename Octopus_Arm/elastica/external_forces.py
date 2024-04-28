@@ -404,7 +404,7 @@ class MuscleTorques(NoForces):
         )
         # Head and tail of the snake is opposite compared to elastica cpp. We need to iterate torque_mag
         # from last to first element.
-        torque = _batch_product_i_k_to_ik(direction, torque_mag[::-1])
+        torque = _batch_product_i_k_to_ik(direction, torque_mag[::1]) #used to be -1
         inplace_addition(
             external_torques[..., 1:],
             _batch_matvec(director_collection, torque)[..., 1:],
